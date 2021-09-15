@@ -2,6 +2,8 @@ package view;
 
 import java.util.concurrent.Semaphore;
 
+import controller.Controladores;
+
 public class Principal {
 
 	public static void main(String[] args) {
@@ -11,7 +13,8 @@ public class Principal {
 		Semaphore semaphore = new Semaphore(permissoes);
 		for (usuario = 1; usuario <= 300; usuario++) {
 			ingressos = (int) ((Math.random() * 4) + 1);
-			System.out.println(ingressos);
+			Thread login = new Controladores(usuario, ingressos, semaphore);
+			login.start();
 		}
 
 	}

@@ -14,38 +14,54 @@ public class Controladores extends Thread {
 		this.semaphore = semaphore;
 	}
 	
+
 	public void run() {
-		logar(usuario);
-		comprar(usuario, ingressos);
+		
+		usuario = logar(usuario);
+		usuario = comprar(usuario);
 	}
 
-	private void logar(int usuario) {
+	private int logar(int usuario) {
+		
 		int tempo = (int)((Math.random() * 2000) + 50);
 		System.out.println(tempo);
+		int aux = 0;
 		try {
 			sleep(tempo);
 			if (tempo>3000) {
 				System.err.println(usuario + " ==>Timeout");
 			}else {
-				comprar(usuario, ingressos);
+				aux = usuario;
 			}
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+		return aux;
 	}
 	
-	private void comprar(int usuario, int ingressos) {
+	private int comprar(int usuario) {
 		int tempo = (int)((Math.random() * 3000) + 1000);
+		int aux = 0;
 		System.out.println(tempo);
 		try {
 			sleep(tempo);
 			if (tempo>5500) {
 				System.err.println(usuario + " ==>Timeout");
 			}else {
-				
+				aux = usuario;
 			}
 		} catch (InterruptedException e) {
 			e.printStackTrace();
+		}
+		return aux;
+	}
+	
+	private void validacompra(int usuario, int ingressos) {
+		int total = 100;
+		if(total!=0) {
+			total = ingressos - total;
+			System.err.println("Usuário "+usuario+" Comprou "+ingressos);
+			System.out.println("Quantidade vendida "+"Quantidade Disponível "+total );
 		}
 	}
 
